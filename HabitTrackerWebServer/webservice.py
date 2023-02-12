@@ -51,11 +51,7 @@ def select():
         cursor.close()
     except Exception as e:
         return str(e)
-    print(returndata)
-    if returndata:
-        return jsonify(returndata)
-    else:
-        return jsonify(returndata)
+    return jsonify(returndata)
 
 @app.route("/insert", methods=['POST'])
 def insert():
@@ -79,17 +75,11 @@ def insert():
             columns = ", ".join(data.keys())
             valuenum = ["%s" for i in range(len(data.keys()))]
             valuenum = ", ".join(valuenum)
-            print(table)
-            print(columns)
-            print(valuenum)
-            print(data.values())
             sql = f"""INSERT INTO {table}({columns}) VALUES ({valuenum})"""
-            print(sql)
             cursor.execute(sql, tuple(data.values()))
             conn.commit()
         cursor.close()
     except Exception as e:
-        print(e)
         return str(e)
     return "Inserted!"
 
